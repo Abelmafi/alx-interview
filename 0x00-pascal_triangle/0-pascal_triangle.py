@@ -1,5 +1,11 @@
 #!/usr/bin/python3
+"""defining paskal triangle function"""
+
+
 def pascal_triangle(n):
+    """The function checks whether n is less than or equal to zero,
+    and returns an empty list if it is."""
+
     if n <= 0:
         return []
     
