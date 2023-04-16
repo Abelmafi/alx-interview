@@ -4,38 +4,24 @@
 import sys
 
 
-def print_stats(total_size, status_codes):
-    """..."""
-    print("File size: {}".format(total_size))
-    for code in sorted(status_codes.keys()):
-        if status_codes[code]:
-            print("{}: {}".format(code, status_codes[code]))
+status_codes = [200, 301, 400, 401, 403, 404, 405, 500]
+status_code_counts = {code: 0 for code in status_codes}
+total_file_size = 0
+lines_processed = 0
 
-
-def main():
-    """..."""
-    total_size = 0
-    status_codes = {200: 0, 301: 0, 400: 0, 401: 0, 403: 0, 404: 0, 405: 0, 500: 0}
-    count = 0
-    for line in sys.stdin:
-        count += 1
-        try:
-            parts = line.split()
-            size = int(parts[-1])
-            status = int(parts[-2])
-            total_size += size
-            status_codes[status] += 1
-        except (ValueError, IndexError):
-            continue
-        if count % 10 == 0:
-            print_stats(total_size, status_codes)
-        try:
-            sys.stdout.flush()
-        except IOError:
-            continue
-    print_stats(total_size, status_codes)
-
-
-if __name__ == '__main__':
-    main()
-
+for line in sys.stdin:
+    try:
+        parts = line.split()
+        status_code = int(parts[-2])
+        file_size = int(parts[-1])
+        if status_code in status_codes:
+            status_code_counts[status_code] += 1
+            total_file_size += file_size
+        lines_processed += 1
+        if lines_processed % 10 == 0:
+            print("File size: {}".format(total_file_size))
+            for code in sorted(status_codes):
+                if status_code_counts[code] > 0:
+                    print("{}: {}".format(code, status_code_counts[code]))
+    except (ValueError, IndexError):
+        pass
