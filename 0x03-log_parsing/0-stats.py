@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 import sys
 import signal
 
@@ -10,6 +10,7 @@ total_file_size = 0
 
 # Define a function to handle keyboard interruption (CTRL + C)
 def signal_handler(sig, frame):
+    """..."""
     print_stats()
     sys.exit(0)
 
@@ -18,6 +19,7 @@ signal.signal(signal.SIGINT, signal_handler)
 
 # Define a function to print the statistics
 def print_stats():
+    """..."""
     print(f'Total file size: {total_file_size}')
     for status_code, count in sorted(status_counts.items()):
         if count:
