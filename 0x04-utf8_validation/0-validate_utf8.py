@@ -1,29 +1,32 @@
 #!/usr/bin/python3
 """0-validate_utf8.py"""
 
-def validUTF8(data):
+
+def valid_utf8(data):
     """Checks if a list of integers are valid UTF-8 codepoints.
     See <https://datatracker.ietf.org/doc/html/rfc3629#page-4>
     """
-    num_bytes = 0
-    n = len(data)
-    for i in range(n):
-        if data[i] > 255:
+    if not isinstance(data, list) or not all(isinstance(x, int) for x in data):
+        return False
+
+    bytes_remaining = 0
+    for byte in data:
+        if byte > 255:
             return False
-        if num_bytes == 0:
-            if (data[i] >> 7) == 0:
+        if bytes_remaining == 0:
+            if byte & 0b10000000 == 0:
                 continue
-            elif (data[i] >> 5) == 0b110:
-                num_bytes = 2
-            elif (data[i] >> 4) == 0b1110:
-                num_bytes = 3
-            elif (data[i] >> 3) == 0b11110:
-                num_bytes = 4
+            elif byte & 0b11100000 == 0b11000000:
+                bytes_remaining = 1
+            elif byte & 0b11110000 == 0b11100000:
+                bytes_remaining = 2
+            elif byte & 0b11111000 == 0b11110000:
+                bytes_remaining = 3
             else:
                 return False
         else:
-            if (data[i] >> 6) != 0b10:
+            if byte & 0b11000000 != 0b10000000:
                 return False
-            num_bytes -= 1
+            bytes_remaining -= 1
 
-    return num_bytes == 0
+    return bytes_remaining == 0
