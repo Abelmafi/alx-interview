@@ -3,14 +3,16 @@
 
 
 def validUTF8(data):
-    """return trueif the input data is valid utf-8 incoded data else false"""
     num_bytes = 0
 
     for i in data:
+        if i > 255:
+            return False
+
         if num_bytes == 0:
             if (i >> 7) == 0b0:
                 num_bytes = 1
-            elif (i >> 5) == 0b110:
+            if (i >> 5) == 0b110:
                 num_bytes = 2
             elif (i >> 4) == 0b1110:
                 num_bytes = 3
@@ -19,8 +21,9 @@ def validUTF8(data):
             else:
                 return False
         else:
-            if (i >> 6) != 0b10:
+            if ((i >> 6) != 0b10) and (num_bytes != 1):
                 return False
             num_bytes -= 1
 
-    return num_bytes == 0
+
+    return True
