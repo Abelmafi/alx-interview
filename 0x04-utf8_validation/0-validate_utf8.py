@@ -4,11 +4,11 @@
 
 def validUTF8(data):
     """Checks if a list of integers are valid UTF-8 codepoints.
-    See <https://datatracker.ietf.org/doc/html/rfc3629#page-4>
     """
     if not isinstance(data, list) or not all(isinstance(x, int) for x in data):
         return False
-
+    if data == []:
+        return False
     bytes_remaining = 0
     for byte in data:
         if byte > 255:
