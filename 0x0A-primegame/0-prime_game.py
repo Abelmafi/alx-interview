@@ -35,10 +35,11 @@ def isWinner(x, nums):
     ben_wins = 0
 
     for n in nums:
-        if is_prime(n):
-            maria_wins += 1
-        else:
+        prime_count = sum(is_prime(i) for i in range(1, n + 1))
+        if prime_count % 2 == 0:
             ben_wins += 1
+        else:
+            maria_wins += 1
 
     if maria_wins > ben_wins:
         return "Maria"
