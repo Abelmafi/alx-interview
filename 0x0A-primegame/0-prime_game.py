@@ -11,7 +11,8 @@ def isWinner(x, nums):
         nums (list): List of integers representing 'n' for each round.
 
     Returns:
-        str or None: The name of the player with the most wins, or None if the winner cannot be determined.
+        str or None: The name of the player with the most wins,
+        or None if the winner cannot be determined.
     """
     def is_round_winner(n):
         """
@@ -21,7 +22,8 @@ def isWinner(x, nums):
             n (int): The value of 'n' for the round.
 
         Returns:
-            str or None: The name of the round winner ('Maria' or 'Ben'), or None if the round is a draw.
+            str or None: The name of the round winner ('Maria' or 'Ben'),
+            or None if the round is a draw.
         """
         number_list = [i for i in range(1, n + 1)]
         players = ['Maria', 'Ben']
