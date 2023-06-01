@@ -2,7 +2,7 @@
 """defining is_winner function"""
 
 
-def is_winner(num_rounds, nums):
+def isWinner(num_rounds, nums):
     """
     Determine the winner of each game in the Prime Number Game.
     Args:
