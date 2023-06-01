@@ -11,7 +11,8 @@ def isWinner(x, nums):
         nums (list): List of integers representing 'n' for each round.
 
     Returns:
-        str or None: The name of the player with the most wins, or None if the winner cannot be determined.
+        str or None: The name of the player with the most wins,
+        or None if the winner cannot be determined.
     """
 
     def is_prime(n):
